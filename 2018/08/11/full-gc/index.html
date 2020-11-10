@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2018/7 | Shelton的博客</title>
+  <title>HiveServer Full GC 問題解決 | Shelton的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Shelton的博客">
-<meta property="og:url" content="http://example.com/archives/2018/07/index.html">
+  <meta name="description" content="此文介紹公司大數據平台HiveServer出現過的Full GC問題的現象和原因，以及解決方法。 通過修改Hive源碼實現需求。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HiveServer Full GC 問題解決">
+<meta property="og:url" content="http://example.com/2018/08/11/full-gc/index.html">
 <meta property="og:site_name" content="Shelton的博客">
+<meta property="og:description" content="此文介紹公司大數據平台HiveServer出現過的Full GC問題的現象和原因，以及解決方法。 通過修改Hive源碼實現需求。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-08-11T06:48:00.000Z">
+<meta property="article:modified_time" content="2020-11-10T06:28:36.789Z">
 <meta property="article:author" content="Shelton Lee">
+<meta property="article:tag" content="Hive">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Shelton的博客" type="application/atom+xml">
@@ -136,60 +141,189 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-full-gc" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/16/huawei-internship/" class="archive-article-date">
-  	<time datetime="2018-07-16T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/16/huawei-internship/">菊廠實習日記</a>
+    <h1 class="article-title" itemprop="name">
+      HiveServer Full GC 問題解決
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/08/11/full-gc/" class="archive-article-date">
+  	<time datetime="2018-08-11T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>此文介紹公司大數據平台HiveServer出現過的Full GC問題的現象和原因，以及解決方法。</p>
+<p>通過修改Hive源碼實現需求。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>公司在3月16日出現HiveServer任務阻塞，並且導致HiveServer節點自動重啓的現象。線上任務大量卡死。阻塞的HiveServer節點均出現Full GC現象，內存資源完全撐爆。同時不正常的Map任務直接導致了HDFS大量文件的鑒權執行，間接導致HDFS節點癱瘓。</p>
+<h2 id="根因"><a href="#根因" class="headerlink" title="根因"></a>根因</h2><p>通過分析運行日誌發現，出現Full GC的Server節點都有Number of Splits：XXXXX紀錄。這裡記錄的是Hive任務MapReduce階段產生的分片數量。導致集群卡死的任務產生的splits數達到了驚人的600多萬，而正常業務任務的splits數應該保持在1萬左右。很顯然這是不正常的SQL請求導致的服務器卡死，可能是業務人員SQL沒有經過優化。介於此我們必須採取方式來避免這種情況的發生，對於不正常的Hive任務我們應該拒絕執行。</p>
+<p>在執行MapReduce任務之前，我們需要分析Table表文件存儲地址的所有文件，根據文件大小或者文件數量（目前默認採用的是文件大小）來產生所有的splits分片，然後根據分片數劃分同等數量的Map，將每個split分配給一個Map進行處理。</p>
+<p>Hive默認調用org.apache.hadoop.hive.ql.io.ComineHiveInputFormat.java的getSplits方法來處理分片，ComineHiveInputFormat類在分片時進行組合優化，將一個Table的同一個Partition中的小文件組合分片，多少小文件組合在一個分片中由小文件的大小和分片設定大小等參數共同決定。我們也可以在執行Hive任務之前通過命令<code>set hive.input.format;</code>來設置其他的inputformat方式來處理分片。比如通過命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set hive.input.format=org.apache.hadoop.hive.ql.io.HiveInputFormat;</span><br></pre></td></tr></table></figure>
+
+<p>我們可以把inputformat設定為HiveInputFormat，這樣分片時就不會優化，hive任務需要訪問多少HDFS文件就會產生多少分片以及多少Map數。</p>
+<p>不管是哪個InputFormat，getSplits函數時會把生成的所有splits都保存在內存中，這樣如果遇到大規模splits時必然會導致內存Full，然我們已ComineHiveInputFormat為例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> InputSplit[] getSplits(JobConf job, <span class="keyword">int</span> numSplits) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    ......</span><br><span class="line">    ArrayList&lt;InputSplit&gt; result = <span class="keyword">new</span> ArrayList&lt;InputSplit&gt;();</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">if</span> (combinablePaths.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    ......</span><br><span class="line">      InputSplit[] splits = getCombineSplits(job, numSplits, pathToPartitionInfo);</span><br><span class="line">      <span class="keyword">for</span> (InputSplit split : splits) &#123;</span><br><span class="line">        result.add(split);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    LOG.info(<span class="string">&quot;Number of all splits &quot;</span> + result.size());</span><br><span class="line">    perfLogger.PerfLogEnd(CLASS_NAME, PerfLogger.GET_SPLITS);</span><br><span class="line">    <span class="keyword">return</span> result.toArray(<span class="keyword">new</span> InputSplit[result.size()]);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我們可見getSplits方法直接把所有生成的splits放入result中，這直接導致了內存資源的大量佔用。</p>
+<h2 id="解決辦法"><a href="#解決辦法" class="headerlink" title="解決辦法"></a>解決辦法</h2><p>方案是為管理員提供可以設置splits最大上限的通道，對於所有Hive任務執行前，我們事先判斷Splits數是否會超出最大上限，超過則報出異常，不予執行。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/Alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日記</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hive</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/08/11/full-gc/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/16/huawei-internship/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">菊廠實習日記</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -212,8 +346,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
