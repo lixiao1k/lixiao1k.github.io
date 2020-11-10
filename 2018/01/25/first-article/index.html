@@ -6,25 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>使用Matplotlib畫圖小敘 | Shelton的博客</title>
+  <title>開博大吉 | Shelton的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近復現一篇論文，論文中有許多的可視化做圖，主要畫一些折線圖和柱狀圖，用的是R語言，我都用Python來實現了。咱先不論R語言和Python那個好，因為一旦開口盆友圈那些用R語言的定饒不了我。態度很明確了吧，逃～～">
+  <meta name="description" content="以前沒有寫部落格的習慣，隨著知識的積累和技術難度的提升，發現很有必要將零碎的tips紀錄下來，以便回憶參考，同時方便大家借鑑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Matplotlib畫圖小敘">
-<meta property="og:url" content="http://example.com/2018/01/28/matplatlib-draw/index.html">
+<meta property="og:title" content="開博大吉">
+<meta property="og:url" content="http://example.com/2018/01/25/first-article/index.html">
 <meta property="og:site_name" content="Shelton的博客">
-<meta property="og:description" content="最近復現一篇論文，論文中有許多的可視化做圖，主要畫一些折線圖和柱狀圖，用的是R語言，我都用Python來實現了。咱先不論R語言和Python那個好，因為一旦開口盆友圈那些用R語言的定饒不了我。態度很明確了吧，逃～～">
+<meta property="og:description" content="以前沒有寫部落格的習慣，隨著知識的積累和技術難度的提升，發現很有必要將零碎的tips紀錄下來，以便回憶參考，同時方便大家借鑑。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/photos/matplotlib-draw/matplotlib-two.png">
-<meta property="og:image" content="http://example.com/photos/matplotlib-draw/matplotlib-three.png">
-<meta property="og:image" content="http://example.com/photos/matplotlib-draw/matplotlib-four.png">
-<meta property="article:published_time" content="2018-01-28T06:48:00.000Z">
-<meta property="article:modified_time" content="2020-11-10T06:14:00.266Z">
+<meta property="article:published_time" content="2018-01-25T06:48:00.000Z">
+<meta property="article:modified_time" content="2020-11-10T06:22:02.628Z">
 <meta property="article:author" content="Shelton Lee">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="日記">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/photos/matplotlib-draw/matplotlib-two.png">
   
     <link rel="alternative" href="/atom.xml" title="Shelton的博客" type="application/atom+xml">
   
@@ -146,20 +141,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-matplatlib-draw" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-first-article" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      使用Matplotlib畫圖小敘
+      開博大吉
     </h1>
   
 
         
-        <a href="/2018/01/28/matplatlib-draw/" class="archive-article-date">
-  	<time datetime="2018-01-28T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
+        <a href="/2018/01/25/first-article/" class="archive-article-date">
+  	<time datetime="2018-01-25T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
 </a>
         
       </header>
@@ -167,56 +162,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>最近復現一篇論文，論文中有許多的可視化做圖，主要畫一些折線圖和柱狀圖，用的是R語言，我都用Python來實現了。咱先不論R語言和Python那個好，因為一旦開口盆友圈那些用R語言的定饒不了我。態度很明確了吧，逃～～</p>
+<p>以前沒有寫部落格的習慣，隨著知識的積累和技術難度的提升，發現很有必要將零碎的tips紀錄下來，以便回憶參考，同時方便大家借鑑。</p>
 </blockquote>
 <a id="more"></a>
 
-<p>我是在實驗室工作時首次接觸了Matplotlib，由於實驗室的所有工作內容是要嚴格保密的，所以在這裡我這裡只能把其中運用到的一些純技術抽離出來，細細品嚼。但是缺少了實驗內容的大環境，可能會出現些上下文銜接不暢、有骨無肉的不快感。</p>
-<h2 id="折線圖"><a href="#折線圖" class="headerlink" title="折線圖"></a>折線圖</h2><p>畫普通的折線圖很簡單，這裡就不多說了。但是有一些特殊類型的折線圖起初卡了我一段時間。</p>
-<ul>
-<li><strong>一圖多線</strong></li>
-</ul>
-<p>關鍵點在於如何設置雙座標軸，這裡使用到了twinx和twiny方法，twinx制作共享x轴的第二个轴。 新轴将覆盖ax（如果ax为None，则为当前轴）。 ax2的标记将被放置在右侧，并且ax2实例被返回。twiny同理。</p>
-<p>首先獲取圖的句柄，然後設置此圖的另一座標軸。代碼如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">l1, = ax1.plot(x, y1, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">ax2 = ax1.twinx()</span><br><span class="line">l2, = ax2.plot(x, y2, <span class="string">&#x27;r&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>l1, l2, 在這裡顯得很突兀，其實不然，這裡獲取的來兩個折線句柄是用來設置圖例的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.legend([l1, l2], [<span class="string">&#x27;Not Seasonally Adjusted&#x27;</span>, <span class="string">&#x27;Seasonally adjusted&#x27;</span>], loc=<span class="number">3</span>, </span><br><span class="line">           fontsize=<span class="string">&#x27;x-small&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>legend方法（當然有很多種用法）傳入的參數首先是一個線條list，然後這些線條對應的label list。其他一些參數是外觀調節的。</p>
-<p>設置座標軸的刻度標籤方法（一目了然不解釋）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ax2.set_xticks([<span class="number">0</span>, <span class="number">24</span>, <span class="number">48</span>, <span class="number">72</span>, <span class="number">96</span>, <span class="number">120</span>, <span class="number">144</span>, <span class="number">168</span>])</span><br><span class="line">ax2.set_xticklabels([<span class="string">&#x27;2003&#x27;</span>, <span class="string">&#x27;2005&#x27;</span>, <span class="string">&#x27;2007&#x27;</span>, <span class="string">&#x27;2009&#x27;</span>, <span class="string">&#x27;2011&#x27;</span>, <span class="string">&#x27;2013&#x27;</span>, <span class="string">&#x27;2015&#x27;</span>, <span class="string">&#x27;2017&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>點線圖</strong></li>
-</ul>
-<p>廢話不多說，放圖</p>
-<p><img src="/photos/matplotlib-draw/matplotlib-two.png" alt="matplotlib-two"></p>
-<p>點線圖畫起來很簡單，但是裡面藏著的知識點是，你畫的圖是可以疊加的，就像塗層一樣。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(e[:-3], b, color&#x3D;&#39;blue&#39;) # 前面兩個參數分別是點的橫縱座標</span><br><span class="line">plt.plot(e[:-3], regr.predict(a), color&#x3D;&#39;red&#39;, linewidth&#x3D;4)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>X-軸取值範圍不同的圖，典型的預測圖</strong></li>
-</ul>
-<p>依舊先放圖</p>
-<p><img src="/photos/matplotlib-draw/matplotlib-three.png" alt="matplotlib-three"></p>
-<p>一開始想說使用set_xlim方法來限制另一條線的x軸範圍。其實是行不通的，兩條線既然已經共用了一個座標軸，我們是沒辦法單獨調節一張圖的x-軸的顯示範圍。因為在一個座標軸裡畫的多條線的數據緯度必須是一樣的，據個例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, train_data)</span><br><span class="line">plt.plot(y, predict_result)</span><br></pre></td></tr></table></figure>
-
-<p>想要用這種方法畫預測線和訓練線，當然此時的預測線數據緯度是小於訓練線的。想著然後用set_xlim方法來調節訓練線在x-軸上的位置。喔，好天真啊。應為圖根本就畫不出來的，哈哈哈。在同一個座標系裡做圖，有一個數據緯度的限制，首先橫縱座標數據未讀相同是不必多說的，其次多條線的數據緯度也要相同。以上面這個例子來說就是 len(x) = len(train_data) = len(y) = len(predict_result)， 然而我們的len(train_data) != len(predict_result)。所以此路不通。那應該用什麼辦法呢？</p>
-<p>解決的辦法還是使用twinx，twinx簡直就是神器啊。使用了twinx兩條線可以共用x軸，但是座標軸對象不是一個，他們只是共用了twinx，畫圖時就可以互相不影響了。</p>
-<p>圖中的虛線和提示很簡單，兩條代碼搞定。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot([<span class="number">60</span>, <span class="number">60</span>], [<span class="number">0</span>, <span class="number">1400</span>], color =<span class="string">&#x27;black&#x27;</span>, linewidth=<span class="number">2.5</span>, linestyle=<span class="string">&quot;--&quot;</span>)</span><br><span class="line">plt.annotate(<span class="string">&#x27;left is training data&#x27;</span>,</span><br><span class="line">	xy=(<span class="number">60</span>, <span class="number">1000</span>), xycoords=<span class="string">&#x27;data&#x27;</span>,</span><br><span class="line">	xytext=(+<span class="number">10</span>, +<span class="number">30</span>), textcoords=<span class="string">&#x27;offset points&#x27;</span>, fontsize=<span class="number">12</span>,</span><br><span class="line">	arrowprops=<span class="built_in">dict</span>(arrowstyle=<span class="string">&quot;-&quot;</span>, connectionstyle=<span class="string">&quot;arc3&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<h2 id="柱狀圖"><a href="#柱狀圖" class="headerlink" title="柱狀圖"></a>柱狀圖</h2><p><img src="/photos/matplotlib-draw/matplotlib-four.png" alt="matplotlib-four"></p>
-<p>這張柱狀圖和之前討論到的圖比較有兩點特色，一個是兩份數據的條狀圖形在座標上的分佈位置，一個如何處理過長的刻度標籤。</p>
-<p>首先我們來看畫一類數據的柱狀圖（這裡就不具體講了）。可以很容易的看到，只有一類數據的柱狀圖的條狀圖形是系統自動設置在座標中的位置和寬度（當然這個寬度可以用戶自定義）的。</p>
-<p>引伸到畫多類數據時，我們只需要定義好一個數據點的條狀圖形簇的位置，然後再以條狀圖形簇為標準微調各類數據的條狀圖形的各自所在的點。語文學的不好，不能表述清楚，見諒。代碼貼出來就一目了然了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">size = <span class="built_in">len</span>(predict_data1) <span class="comment"># 數據緯度</span></span><br><span class="line">x = np.arange(size) <span class="comment">#條狀圖形簇定標點</span></span><br><span class="line">total_width, n = <span class="number">0.8</span>, <span class="number">2</span></span><br><span class="line">width = total_width / n <span class="comment"># 用來設置每條條狀圖的位置</span></span><br><span class="line">x = x - (total_width - width) <span class="comment"># 通上</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">p1 = plt.bar(x, predict_data1, width=width, color=<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">p2 = plt.bar(x + width, predict_data2, width=width)</span><br></pre></td></tr></table></figure>
-
-<p>處理過長的刻度標籤一般採用使標籤傾斜的方法，直接設置set_xticklabels方法中的rotatio參數即可。</p>
-<p>暫結。</p>
-<p>謝謝，希望大家提出寶貴意見。</p>
+<h2 id="開博叨叨"><a href="#開博叨叨" class="headerlink" title="開博叨叨"></a>開博叨叨</h2><h3 id="寫博的衝動越來越強，必要性也越來越大"><a href="#寫博的衝動越來越強，必要性也越來越大" class="headerlink" title="寫博的衝動越來越強，必要性也越來越大"></a><strong>寫博的衝動越來越強，必要性也越來越大</strong></h3><p>之前沒有寫部落和的習慣一是因為沒有需求。大一大二時和大家一樣，不管是學什麼專業的，都在知識積累儲備的階段。那時的作業、項目都是踩著別人的腳印走，與其說當時的問題域與大眾技術從業者重合，不如說自己做的東西爛的拿不出手。凡是我所謂經驗者，百度即可。其二呢就是沒有合適的部落格平台，CSDN、簡書等等其實都挺好的，但不知為何提不起我寫博的興致。後來發現還得自己建個部落格自己養才有感覺。我的格採用了Hexo+github架構，Hexo是一個簡單、快速、強大的基於 Github Pages的博客發佈工具，支持Markdown格式，有眾多優秀的插件和主題。我的主題選用了Yilia，是鵝廠的一個團隊寫的，個人覺得還不錯，就是小問題比較多。這種架構搭格子比較方便，半天時間吧。完全自己寫一個當然更好了，但我覺得沒有必要在一個平台上浪費太多時間，得不償失，況且有框架則用框架，才在前人的肩膀上前進，這已經成為了IT界的共識了。身邊有一些反其道而行的人，比如突然咀嚼起Lisp，問他為什麼要學這個，他自己也說不清。不能說學了沒用吧，但是可見此條路他越走越窄，後來便不再從他口中說起此事。</p>
+<h3 id="部落格的內容"><a href="#部落格的內容" class="headerlink" title="部落格的內容"></a>部落格的內容</h3><p>我打算主要在格里放些技術經驗Tips，供大家參考、自己溫習。</p>
+<p>其次還打算放日記，紀錄生活中的點滴。當然了還希望加個相冊，但是現在還沒能實現，以後慢慢來吧。照片、音樂、視頻功能慢慢會加上去。</p>
+<p>如果格子內容有哪些問題的話歡迎大家在文章下面積極留言，也歡迎大家通過郵件、QQ、微博、微信等等方式聯繫我。</p>
+<p>謝謝大家。</p>
 
       
 
@@ -256,11 +210,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">matplotlib</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日記</a>
         		</li>
       		
 		</ul>
@@ -316,7 +266,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/01/28/matplatlib-draw/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/01/25/first-article/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,20 +280,15 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/29/hexo-built/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/28/matplatlib-draw/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          使用Hexo搭建你的溫馨部落格
+          使用Matplotlib畫圖小敘
         
       </div>
     </a>
   
-  
-    <a href="/2018/01/25/first-article/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">開博大吉</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
