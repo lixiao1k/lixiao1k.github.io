@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020 | Hexo</title>
+  <title>使用Hexo搭建你的溫馨部落格 | Shelton的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2020/index.html">
-<meta property="og:site_name" content="Hexo">
+  <meta name="description" content="此文介紹使用Hexo + Github架構搭建個人博客的詳細步驟，我儘量做到能讓非專業的人也能聽懂，因為有一個精美的個人博客是大家都希望的。  申明：文章主要參考了潘柏信的相關文章，如果覺得文章前部分有些類似也不要太驚訝，原因有二，其一，Hexo搭建很簡單，所以內容類似很正常。其次我搭建博客參考的也是他的文章。但是後部分的域名、主題等就沒參考他了。 簡介Hexo是一個簡單、快速、強大的基於 Gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo搭建你的溫馨部落格">
+<meta property="og:url" content="http://example.com/2018/01/29/hexo-built/index.html">
+<meta property="og:site_name" content="Shelton的博客">
+<meta property="og:description" content="此文介紹使用Hexo + Github架構搭建個人博客的詳細步驟，我儘量做到能讓非專業的人也能聽懂，因為有一個精美的個人博客是大家都希望的。  申明：文章主要參考了潘柏信的相關文章，如果覺得文章前部分有些類似也不要太驚訝，原因有二，其一，Hexo搭建很簡單，所以內容類似很正常。其次我搭建博客參考的也是他的文章。但是後部分的域名、主題等就沒參考他了。 簡介Hexo是一個簡單、快速、強大的基於 Gi">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="article:published_time" content="2018-01-28T16:53:00.000Z">
+<meta property="article:modified_time" content="2020-11-10T03:55:56.733Z">
+<meta property="article:author" content="Shelton Lee">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Shelton的博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -150,49 +155,354 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hexo-built" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/10/hello-world/" class="archive-article-date">
-  	<time datetime="2020-11-10T02:57:02.423Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/10/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      使用Hexo搭建你的溫馨部落格
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2018/01/29/hexo-built/" class="archive-article-date">
+  	<time datetime="2018-01-28T16:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>此文介紹使用Hexo + Github架構搭建個人博客的詳細步驟，我儘量做到能讓非專業的人也能聽懂，因為有一個精美的個人博客是大家都希望的。</p>
+</blockquote>
+<p><strong>申明</strong>：文章主要參考了潘柏信的相關文章，如果覺得文章前部分有些類似也不要太驚訝，原因有二，其一，Hexo搭建很簡單，所以內容類似很正常。其次我搭建博客參考的也是他的文章。但是後部分的域名、主題等就沒參考他了。</p>
+<h2 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h2><p>Hexo是一個簡單、快速、強大的基於 Github Pages的博客發佈工具，支持Markdown格式，有眾多優秀的插件和主題。這個之前的文章的已經提及，Github託管的好處是方便快捷，不需要自己額外搭服務器，另一個好處是使用Github託管可以免去域名審核。什麼是域名審核？如果你的博客不打算使用自己的域名，只使用Github提供的鏈接的話就沒有這個問題。但是如果大家想要使用自己的域名的話，現在國家在這方面管得緊，需要把你的域名和服務器備案，不過Github服務器在國外，所以我們就免去了備案的麻煩。</p>
+<a id="more"></a>
 
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>現在就開始嘍，對了，這個教程針對的是Mac用戶，Windows用戶使用問題應該不大，但是我沒有試過。</p>
+<ul>
+<li><p><strong>安裝Node</strong><br>Node的作用是生成靜態頁面。<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js</a>官網下載安裝即可，安裝步驟百度上海量，此處不詳細描述。</p>
+</li>
+<li><p><strong>安裝Git</strong></p>
+</li>
+</ul>
+<p>Git是版本控制工具，非專業人士可能沒有提說過，如果電腦中有安裝Xcode的話默認已經安裝了Git。如果沒有，Git安裝也是很簡單的，百度（能百度的不叫問題，哈哈）即可。</p>
+<ul>
+<li><strong>申請Github帳號</strong></li>
+</ul>
+<p>因為我們的博客是部署在Github上的，所以當讓要有一個Github帳號了。至於本地Git和Github關聯的問題，自行百度吧。這些對於專業人士來說都不是問題，非專業人士的話扣我吧。。。</p>
+<ul>
+<li><strong>安裝Hexo</strong></li>
+</ul>
+<p><code>$ sudo npm install -g hexo</code></p>
+<ul>
+<li><strong>初始化博客</strong></li>
+</ul>
+<p>這個過程是真正開始建立你的博客了。</p>
+<p>在本地建立文件夾，這個文件夾就是你的博客倉庫，名字任意起，比如Blog，進入文件夾，並執行hexo init 命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir Blog</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Blog</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init</span></span><br></pre></td></tr></table></figure>
+
+<p>然後你的博客就建好了，是不是很簡單？</p>
+<ul>
+<li><strong>生成靜態頁面</strong></li>
+</ul>
+<p>使用hexo g 命令生成靜態頁面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g(或者hexo generate)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>本地啟動</strong></li>
+</ul>
+<p>啟動本地服務器，本地查看你的博客，用來調適。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s(或者hexo server)</span><br></pre></td></tr></table></figure>
+
+<p>瀏覽器輸入<a href="http://localhost:4000，即可查看。/">http://localhost:4000，即可查看。</a></p>
+<p>關閉server，使用組合鍵ctrl+c</p>
+<h3 id="備置Github託管"><a href="#備置Github託管" class="headerlink" title="備置Github託管"></a><strong>備置Github託管</strong></h3><ul>
+<li><strong>建立託管倉庫（Repository）</strong></li>
+</ul>
+<p>倉庫名必須是【your_user_name.github.io】，比如我的Github帳戶名是lixiao1k，那我就必須起名為lixiao1k.github.io。然後和本地的博客倉庫建立關聯。</p>
+<p>具體關聯步驟如下。</p>
+<p>打開倉庫文件夾下的配置文件_config.yml ，具體結構如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Blog </span><br><span class="line">　｜ </span><br><span class="line">　｜－－ _config.yml </span><br><span class="line">　｜－－ node_modules </span><br><span class="line">　｜－－ public </span><br><span class="line">　｜－－ source </span><br><span class="line">　｜－－ db.json	</span><br><span class="line">　｜－－ package.json </span><br><span class="line">　｜－－ scaffolds </span><br><span class="line">　｜－－ themes</span><br></pre></td></tr></table></figure>
+
+<p>然後將配置文件中的Deploy相關字段修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https:&#x2F;&#x2F;github.com&#x2F;your_user_name&#x2F;your_user_name.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>執行一下命令才能使用Git部署：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>然後執行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>就完成了部署，然後打開<a target="_blank" rel="noopener" href="http://your_user_name.github.io/%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%BA%86%E3%80%82">http://your_user_name.github.io/就可以看到你的博客了。</a></p>
+<ul>
+<li><strong>添加博文</strong></li>
+</ul>
+<p>博文的添加很簡單，只需要把文章放在source/_posts文件夾下即可，文章支持Markdown各式。然後生成靜態頁面並部署，具體命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>也可以簡單的用一條命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<p>然後就可以看到你的博客內容更新了。</p>
+<ul>
+<li><strong>如何區分標題和全文</strong></li>
+</ul>
+<p>一開始會出現這樣的問題，就是博客在顯示所有文章時，我們期望每篇文章只顯示標題和簡介部分，全文內容應該隱藏。這個很簡單，只需要在文章中加入註釋，就可以區分開標題和全文內容了。</p>
+<h3 id="使用主題"><a href="#使用主題" class="headerlink" title="使用主題"></a>使用主題</h3><p>使用Github託管建博客時，還有另外一個博客發佈工具叫做JkeyII，Jkeyll相對於Hexo有許多優點，Github官方也推薦使用Jkeyll，但是Jkeyll的主題沒有Hexo多，這也是為什麼目前為止大多數人還是選擇使用Hexo，這充分說明了語言或者工具的社區之重要性。</p>
+<p>Hexo主題有很多，<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/wiki/Themes">主题列表</a>中列出了大多數主題，我選用的主題是Yilia，接下來我也來講解一下如何使用Yilia主題。大家可以選取其他主題，當然也可以和我的一樣，這樣也就證明我的審美還是不錯的😄</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">Yilia</a>主題傳送門</p>
+<p>作者做了很詳細的介紹了。</p>
+<ul>
+<li><strong>安裝：</strong></li>
+</ul>
+<figure class="highlight plain"><figcaption><span>git clone</span><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia.git">themes/yilia</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;litten&#x2F;hexo-theme-yilia.git themes&#x2F;yilia</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>配置：</strong></li>
+</ul>
+<p>修改hexo根目录下的字段 ，設為yilia：<code>_config.yml</code> ： <code>theme: yilia</code></p>
+<ul>
+<li><strong>更新</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd themes&#x2F;yilia</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>注意</strong></li>
+</ul>
+<p>作者說配置是在主目錄下的_config.yml，容易被誤解，不是你博客的主目錄，是主題yilia主目錄下的_config.yml，這樣才會有用。</p>
+<ul>
+<li><strong>PS</strong></li>
+</ul>
+<p>如果你不喜歡主題代碼顯示的亮黑色，可以修改themes/yilia/source/下的main.0cf68a.css文件的相關字段。查找.article-entry .highlight，將顏色改為自己喜歡的。</p>
+<h3 id="綁定個人域名"><a href="#綁定個人域名" class="headerlink" title="綁定個人域名"></a>綁定個人域名</h3><p>自己的博客當然要用自己的域名了，不能總是在域名後面帶著github.io的小尾巴吧，多難看啊。</p>
+<p>这个步骤终于要Money了。不过比大家想象的要便宜。</p>
+<p>购买域名很便宜，贵的主要的是解析域名服务，怎么说？就是我们的域名到IP地址之间是需要有一个转换的过程的，网络上定位主机用的是IP地址，但是IP地址不方便人们记忆，所以出现了个性化的域名。这时中间就需要有一个域名解析服务器（DNS）的存在，来将域名解析成相应的IP地址，这个服务的收费就比较昂贵了。但是，但是！相对我们这种小众使用是有免费的！推荐大家使用DNSPod网站，这是提供免费智能DNS解析服务的。来，传送门在此<a target="_blank" rel="noopener" href="https://www.dnspod.cn/">DNSPod</a>。首先註冊一個帳號，然後買個域名，此網站買域名是會鏈接到騰訊。現在知道為什麼免費了吧。不過騰訊的域名也不貴，我買的cn域名11元/年。相比於其他數字產品要便宜多了。</p>
+<ul>
+<li><strong>購買域名</strong></li>
+</ul>
+<p>買好了域名，然後實名認證，此處不需要備案，應為只有在中國大陸地區開展網絡服務的才需要備案，Github的服務器在國外，所以我們不需要備案。Github在國內可以直接訪問，曾有段時間Github也被封了，後來友解封了。相信我，Github以後也不會被封，除非中國政府不想發展信息技術了。</p>
+<ul>
+<li><strong>添加CNAME文件</strong></li>
+</ul>
+<p>然後想你的博客所在主目錄下的source文件夾下創建CNAME文件，文件內容寫</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">example.com</span><br></pre></td></tr></table></figure>
+
+<p>也就是你註冊的頂級域名。</p>
+<p>然後部署到Github上，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;$ hexo g &amp;&amp; hexo d&#96;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>DNS配置</strong></li>
+</ul>
+<p>就是在你的騰訊控制台下，找到你買的域名，然後域名解析，添加三條紀錄：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@          A             192.30.252.153</span><br><span class="line">@          A             192.30.252.154</span><br><span class="line">www      CNAME           username.github.io.</span><br></pre></td></tr></table></figure>
+
+<p>用你的Github帳戶名替換其中的username</p>
+<p>然後應該DNSPod中就應該就有相應的紀錄了，沒有的話先等10分鐘，還沒有就直接在DNSPod中添加紀錄。等待10分鐘後，瀏覽器里輸入你的域名就可以看到你的博客了！</p>
+<h3 id="增加阅读统计功能"><a href="#增加阅读统计功能" class="headerlink" title="增加阅读统计功能"></a>增加阅读统计功能</h3><p>Hexo和Yilia都沒有自帶的統計功能，Yilia作者聲稱不會增加此項功能，因為他認為博客的訪客量給顯示讀者看的價值不大。對此我不敢苟同，博客的訪客量反映的是博文的質量，如果把訪客量顯示與讀者看，可以起到激勵作者的功能。</p>
+<p>既然沒有現成的統計功能，我們就只能尋求插件幫助。目前比較流行的是“不蒜子”插件，安裝簡單便利。</p>
+<p>首先</p>
+<ul>
+<li><strong>安裝“不蒜子”腳本</strong></li>
+</ul>
+<p>在<code>themes\yilia\layout\_partial\after-footer.ejs</code>（注意yilia是我的主題名，不同的主題更改位址需要博主靈活變更）最後添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script  async  src&#x3D;&quot;https:&#x2F;&#x2F;dn-lbstatics.qbox.me&#x2F;busuanzi&#x2F;2.3&#x2F;busuanzi.pure.mini.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然後</p>
+<ul>
+<li><strong>添加網站總訪問量和訪問人次</strong></li>
+</ul>
+<p>修改<code>themes\yilia\layout\_partial\footer.ejs</code>，加入訪問量和訪問人次的代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id&#x3D;&quot;busuanzi_container_site_pv&quot;&gt; 本站总访问量</span><br><span class="line">  &lt;span id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;次</span><br><span class="line">&lt;&#x2F;span&gt;</span><br><span class="line">&lt;span id&#x3D;&quot;busuanzi_container_site_uv&quot;&gt;  本站访客数</span><br><span class="line">  &lt;span id&#x3D;&quot;busuanzi_value_site_uv&quot;&gt;&lt;&#x2F;span&gt;人次</span><br><span class="line">&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最後，如果需要為每篇博文都添加訪問量</p>
+<ul>
+<li><strong>添加單篇文章點擊量</strong></li>
+</ul>
+<p>在編輯文章時，於需要添加的部位加入代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id&#x3D;&quot;busuanzi_container_page_pv&quot;&gt;  本文总阅读量</span><br><span class="line">  &lt;span id&#x3D;&quot;busuanzi_value_page_pv&quot;&gt;&lt;&#x2F;span&gt;次</span><br><span class="line">&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="添加Gitment評論功能"><a href="#添加Gitment評論功能" class="headerlink" title="添加Gitment評論功能"></a>添加Gitment評論功能</h3><p>設置Gitment評論功能異常艱辛，踩了很多坑，主要還是因為很多使用細節作者沒有交代清楚。</p>
+<p>Gitment是<a target="_blank" rel="noopener" href="https://imsun.net/posts/gitment-introduction/">imsun</a>實現的一款基於Github Issues的評論系統。支持在前端直接引入，不需要任何後端代碼。可以在頁面進行登錄、查看、評論、點贊等操作，同時有完整的Markdown/GFM和代碼高亮支持。尤為適合各種基於Github Pages的靜態博客或項目頁面。詳情請看imsun主頁。</p>
+<p>具體操作步驟如下：</p>
+<ul>
+<li><strong>註冊OAuth Application</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">註冊入口</a></p>
+<p>註冊新的OAuth Application的各字段填寫提示如下：</p>
+<p><code>Application name</code> 應用名稱隨便填寫，一般選擇your_user_name.github.io</p>
+<p><code>Homepage URL</code> 填寫主頁地址，注意要詳細填寫，如<code>http://sheltonlee.cn/</code>而不要寫<code>sheltonlee.cn</code>。還沒有個人域名的同學可以寫<code>https://your_user_name.github.io</code>。</p>
+<p><code>Application description</code> 隨便寫</p>
+<p><code>Authorization callback URL</code> 回調地址填寫你的主頁地址，同<code>Homepage_URL</code></p>
+<p>註冊成功後獲取你的<code>Client ID</code> 和<code>Client Secret</code></p>
+<ul>
+<li><strong>主題中引入Gitment</strong></li>
+</ul>
+<p>在主題的配置文件中引入Gitment，以Yilia為例，修改<code>themes\yilia\_config.yml</code> 中的Gitment配置字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#5、Gitment</span><br><span class="line">gitment_owner: lixiao1k     #你的 GitHub ID</span><br><span class="line">gitment_repo: &#39;lixiao1k.github.io&#39;          #存储评论的 repo</span><br><span class="line">gitment_oauth:</span><br><span class="line">  client_id: &#39;xxxxxxxxxxxxxxxxxxxx&#39;           #client ID</span><br><span class="line">  client_secret: &#39;xxxxxxxxxxxxxxxxxxxxxxxxxx&#39;       #client secret</span><br></pre></td></tr></table></figure>
+
+<p>然後部署，就有了評論功能</p>
+<ul>
+<li><strong>初始化評論</strong></li>
+</ul>
+<p>頁面發佈後，你需要訪問頁面並使用你的Github帳號登錄，點擊初始化按鈕。</p>
+<h3 id="踩過的坑😢"><a href="#踩過的坑😢" class="headerlink" title="踩過的坑😢"></a>踩過的坑😢</h3><p>各種問題可以參考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/57afa4844aaa">iHTCboy</a>，我這裡講一些我自己踩的坑，也就是網上沒有任何解決方法的坑。</p>
+<ul>
+<li><strong>Error: Not Found問題</strong></li>
+</ul>
+<p>一般是owner或者repo配置錯誤了，注意名字和倉庫名字的大小寫。</p>
+<p>然而，還是有可能依舊解決不了這個問題，<a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">Yilia</a> 倉庫的Issues便有許多人遇到這樣的問題始終解決不了，然而並沒有人能給出有效解決辦法，一開始我碰到這個問題時也很頭大，總共就兩個字段配置，寫錯的可能性很低，說明問題不在這個上面。Gitment根據你配置的owner和repo去定位你的倉庫，如果找不到，只有三種原因，一、倉庫本身不存在，二、owner和repo配置錯誤，三、你把倉庫設置為private了！！！。除此三種，如果你還能找出其他原因的話，來南京我請你吃飯。我的問題就是手欠把倉庫設成了private，改為public就行了。</p>
+<ul>
+<li><strong>Error：validation failed</strong></li>
+</ul>
+<p>這個問題<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/57afa4844aaa">iHTCboy</a>有詳細解答，並且還有很好的解決方案。這位博主提出在<code>themes\next\layout_third-party\comments\gitments.swig</code> 中修改，將</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id: &#39;&lt;%&#x3D; page.title %&gt;&#39;</span><br></pre></td></tr></table></figure>
+
+<p>改為</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id: &#39;&lt;%&#x3D; page.date %&gt;&#39;</span><br></pre></td></tr></table></figure>
+
+<p>這麼改的是因為在issues里面，可以发现是根据网页标题来新建issues的，而issue的标签label有长度限制！labels的最大长度限制是50个字符，換成以日期為ID就可以避免這個問題。</p>
+<p>Over!</p>
+<p>歡迎提問喔。</p>
+<p>喜歡的點個讚，你的讚是我前進的動力，謝謝大家！</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/01/29/hexo-built/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -202,7 +512,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 John Doe
+    		&copy; 2020 Shelton Lee
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -215,8 +525,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -283,6 +593,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
